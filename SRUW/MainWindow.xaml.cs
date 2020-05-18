@@ -39,5 +39,23 @@ namespace SRUW
         {
             Application.Current.Shutdown();
         }
+        private void MW_F_Changes(object sender, RoutedEventArgs e)
+        {
+            var existingWindow = Application.Current.Windows.Cast<Window>().SingleOrDefault(x => x.Title.Equals("SRUW - Informacje o aplikacji"));
+
+            if (existingWindow == null)
+            {
+                Window ChildWindow_SysInf = new ChildWindow_SysInf();
+                ChildWindow_SysInf.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                ChildWindow_SysInf.Owner = this;
+                ChildWindow_SysInf.Show();
+            }
+            else
+            {
+
+                existingWindow.WindowState = WindowState.Normal;
+                existingWindow.Activate();
+            }
+        }
     }
 }

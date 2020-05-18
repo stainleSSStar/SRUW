@@ -1,0 +1,24 @@
+﻿<Window x:Class="SRUW.ChildWindow_SysInf"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SRUW"
+        mc:Ignorable="d"
+        Title="SRUW - Informacje o aplikacji" Height="319.766" Width="767.624" MinHeight="319.766" MaxHeight="319.766" MinWidth="767.624" MaxWidth="767.624">
+    <Grid>
+        <Border BorderBrush="DarkGray" BorderThickness="3"/>
+        <Image HorizontalAlignment="Center" Height="263" Margin="-18,0,474,0" VerticalAlignment="Top" Width="304" Name="CW_SysInf_Logo" Source="Images/logotype1.png"/>
+        <Label Content="SRUW v1.10 Beta - System Rekrutacyjny Dla Przyszłych Studentów" HorizontalAlignment="Center" Margin="370,10,10,0" VerticalAlignment="Top" Width="380" Height="32" Name="CW_SysInf_Label_1"/>
+        <Label Content="Stworzony przez :" Margin="370,47,190,202" Name="CW_SysInf_Label_2"/>
+        <Label Content="Rafał Paczocha" Margin="370,78,222,172" Name="CW_SysInf_Label_3"/>
+        <Label Content="Bartłomiej Puzio" Margin="370,106,222,145" Name="CW_SysInf_Label_4"/>
+        <Label Content="Numer seryjny wersji : 1.121" Margin="57,179,533,74" Name="CW_SysInf_Label_5"/>
+        <Label Content="Ostatnia aktualizacja : 18.05.2020" Margin="57,215,500,36" Name="CW_SysInf_Label_6"/>
+        <Label Content="Oparty na licencji :" Margin="370,149,257,107" Name="CW_SysInf_Label_7"/>
+        <Label Content="GNU General Public License v3.0" Margin="370,182,172,74" Name="CW_SysInf_Label_8"/>
+        <Button Content="Przeczytaj Licencję" HorizontalAlignment="Center" Margin="451,229,141,0" VerticalAlignment="Top" Name="CW_SysInf_License_Button" Width="164" MinWidth="160" MaxWidth="160" BorderBrush="Gray" BorderThickness="2" Height="24" MinHeight="24" MaxHeight="24" Click="CW_SysInf_F_License"/>
+        <Button Content="Zamknij" HorizontalAlignment="Left" Margin="641,229,0,0" VerticalAlignment="Top" Width="75" Name="CW_SysInf_Close_Button" MinWidth="75" MaxWidth="75" BorderBrush="Gray" BorderThickness="2" Height="24" MinHeight="24" MaxHeight="24" Click="CW_SysInf_F_Close"/>
+        <Button Content="Changelog" HorizontalAlignment="Center" Margin="277,229,314,0" VerticalAlignment="Top" Name="CW_SysInf_Changes_Button" Width="164" MinWidth="160" MaxWidth="160" BorderBrush="Gray" BorderThickness="2" Height="15" MinHeight="24" MaxHeight="24" Click="CW_SysInf_F_Changes"/>
+    </Grid>
+</Window>

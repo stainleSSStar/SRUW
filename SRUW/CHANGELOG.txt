@@ -1,0 +1,8 @@
+﻿Version : SRUW 1.10 Beta
+==================================================================================
+Added : Login.
+Added : Registration.
+Added : Graphical UI.
+Added : Licence Notification.
+Added : Panels and Controls.
+==================================================================================

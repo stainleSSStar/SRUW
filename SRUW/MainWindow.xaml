@@ -13,7 +13,7 @@
         <Grid Name="MW_ButtonGrid">
             <Button Content="Login" FontWeight="Bold" FontStyle="Italic" HorizontalAlignment="Center" Margin="0,250,0,0" VerticalAlignment="Center" Width="200" Height="25" Name="MW_Login_Button"/>
             <Button Content="Rejestracja" HorizontalAlignment="Center" FontWeight="Bold" FontStyle="Italic" Margin="0,325,0,0" VerticalAlignment="Center" Width="200" Height="25" Name="MW_Register_Button"/>
-            <Button Content="Informacje o zmianach w systemie " FontWeight="Bold" FontStyle="Italic" HorizontalAlignment="Center" Margin="0,400,0,0" VerticalAlignment="Center" Width="200" Height="25" Name="MW_Changes_Button"/>
+            <Button Content="Informacje o zmianach w systemie " FontWeight="Bold" FontStyle="Italic" HorizontalAlignment="Center" Margin="0,400,0,0" VerticalAlignment="Center" Width="200" Height="25" Name="MW_Changes_Button" Click="MW_F_Changes"/>
             <Button Content="Zamknij" FontWeight="Bold" FontStyle="Italic" HorizontalAlignment="Center" Margin="0,550,0,0" VerticalAlignment="Center" Width="200" Height="25" Name="MW_Exit_Button" Click="MW_F_Exit"/>
         </Grid>
     </Grid>
