@@ -61,6 +61,53 @@ namespace SRUW
         {
             DB_Resolver dbinterface = new DB_Resolver();
             dbinterface.DB_ConnectionOpener();
+            if (dbinterface.DB_ConnectionChecker())
+            {
+                var existingWindow = Application.Current.Windows.Cast<Window>().SingleOrDefault(x => x.Title.Equals("SRUW - Logowanie"));
+
+                if (existingWindow == null)
+                {
+                    Window ChildWindow_Login = new ChildWindow_Login();
+                    ChildWindow_Login.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    ChildWindow_Login.Owner = this;
+                    ChildWindow_Login.Show();
+                }
+                else
+                {
+                    existingWindow.WindowState = WindowState.Normal;
+                    existingWindow.Activate();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Błąd połączenia z bazą danych systemu. Napewno posiadasz połączenie z internetem?", "SRUW - Błąd Połączenia", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+        private void MW_F_Register(object sender, RoutedEventArgs e)
+        {
+            DB_Resolver dbinterface = new DB_Resolver();
+            dbinterface.DB_ConnectionOpener();
+            if (dbinterface.DB_ConnectionChecker())
+            {
+                var existingWindow = Application.Current.Windows.Cast<Window>().SingleOrDefault(x => x.Title.Equals("SRUW - Rejestracja"));
+
+                if (existingWindow == null)
+                {
+                    Window ChildWindow_Register = new ChildWindow_Register();
+                    ChildWindow_Register.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    ChildWindow_Register.Owner = this;
+                    ChildWindow_Register.Show();
+                }
+                else
+                {
+                    existingWindow.WindowState = WindowState.Normal;
+                    existingWindow.Activate();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Błąd połączenia z bazą danych systemu. Napewno posiadasz połączenie z internetem?", "SRUW - Błąd Połączenia", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
     }
 }

@@ -12,41 +12,53 @@ namespace SRUW
     {
         private string db_connectionstring = "datasource = 127.0.0.1; port=3306;username=root;password=;database=sruwdb;";
         private string db_networkingquery = "SELECT * from sruw_accounts";
+        private string db_connectionstatus = "unknown";
         public void DB_ConnectionOpener()
         {
             MySqlConnection dbconnectionobj = new MySqlConnection(db_connectionstring);
-
             MySqlCommand execcommand = new MySqlCommand(db_networkingquery, dbconnectionobj);
             execcommand.CommandTimeout = 30;
             MySqlDataReader datareader;
-
             try
             {
                 dbconnectionobj.Open();
                 datareader = execcommand.ExecuteReader();
-
                 if (datareader.HasRows)
                 {
                     while (datareader.Read())
                     {
                         string[] row = { datareader.GetString(0), datareader.GetString(1), datareader.GetString(2), datareader.GetString(3) };
+                        db_connectionstatus = "Online";
                     }
                 }
                 else
                 {
                     MessageBox.Show("Baza systemu nie posiada rekordów", "SRUW - Błąd Bazodanowy", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
-
                 DB_ConnectionCloser(dbconnectionobj);
             }
             catch (Exception exception)
             {
-                MessageBox.Show("Błąd połączenia z bazą danych systemu. Napewno posiadasz połączenie z internetem?", "SRUW - Błąd Połączenia", MessageBoxButton.OK, MessageBoxImage.Warning);
+                db_connectionstatus = "Offline";
             };
         }
         public void DB_ConnectionCloser(MySqlConnection obj) {
             obj.Close();
-        } 
+        }
+        public bool DB_ConnectionChecker()
+        {
+            if (db_connectionstatus == "Online")
+            {
+                return true;
+            }
+            else if(db_connectionstatus == "Offline"){
+                return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
 
