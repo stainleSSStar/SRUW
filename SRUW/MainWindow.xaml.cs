@@ -57,5 +57,10 @@ namespace SRUW
                 existingWindow.Activate();
             }
         }
+        private void MW_F_Login(object sender, RoutedEventArgs e)
+        {
+            DB_Resolver dbinterface = new DB_Resolver();
+            dbinterface.DB_ConnectionOpener();
+        }
     }
 }
