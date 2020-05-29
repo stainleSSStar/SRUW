@@ -5,12 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SRUW"
         mc:Ignorable="d"
-        Title="SRUW - Logowanie" Height="400" Width="650">
+        Title="SRUW - Logowanie" Height="400" Width="650" MinHeight="400" MaxHeight="400" MinWidth="650" MaxWidth="650">
     <Grid>
         <Border BorderBrush="DarkGray" BorderThickness="3"/>
-        
-        <Button Content="Zaloguj" HorizontalAlignment="Left" Margin="225,271,0,0" VerticalAlignment="Top" Width="200" Height="30" RenderTransformOrigin="0.5,0.5"/>
-        <Button Content="Wróć" HorizontalAlignment="Left" Margin="225,306,0,0" VerticalAlignment="Top" Width="200" Height="30" RenderTransformOrigin="0.5,0.5" Click="CW_Login_F_Close"/>
+        <Label Content="Logowanie" FontSize="24" FontFamily="Times New Roman" FontStyle="Italic" Width="300" MinWidth="300" MaxWidth="300" Height="50" MaxHeight="50" MinHeight="50" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="171,10,171,309"/>
+        <Separator Width="300" MaxWidth="300" MinWidth="300" Height="10" MaxHeight="10" MinHeight="10" Margin="171,55,171,295" Background="Black" HorizontalContentAlignment="Center"/>
+        <Label Content="Pesel : " FontSize="21" FontFamily="Times New Roman"  Width="100" MinWidth="100" MaxWidth="100" Height="32" MaxHeight="32" MinHeight="32" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="183,103,0,226"/>
+        <Label Content="Kod uwierzytelniający : " FontSize="21" FontFamily="Times New Roman" Width="250" MinWidth="250" MaxWidth="250" Height="35" MaxHeight="35" MinHeight="35" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="33,162,0,167"/>
+        <TextBox Name="CW_Login_Pesel_Field" Width="255" MaxWidth="245" MinWidth="245" Height="32" MinHeight="20" MaxHeight="20" Background="White" Text="" Margin="312,107,75,230" IsEnabled="True" IsReadOnly="False" BorderBrush="LightBlue" BorderThickness="1" FontSize="14"/>
+        <TextBox Name="CW_Login_AuthCode_Field" Width="255" MaxWidth="245" MinWidth="245" Height="32" MinHeight="20" MaxHeight="20" Background="White" Text="" Margin="312,168,75,169" IsEnabled="True" IsReadOnly="False" BorderBrush="LightBlue" BorderThickness="1" FontSize="14"/>
+
+        <Button Content="Zaloguj" Name="CW_Login_Logon_Button" HorizontalAlignment="Left" Margin="225,271,0,0" VerticalAlignment="Top" Width="200" Height="30" MaxHeight="30" MinHeight="30" MaxWidth="200" MinWidth="200" RenderTransformOrigin="0.5,0.5"/>
+        <Button Content="Wróć" Name="CW_Login_Close_Button" HorizontalAlignment="Left" Margin="225,306,0,0" VerticalAlignment="Top" Width="200" Height="30" MaxHeight="30" MinHeight="30" MaxWidth="200" MinWidth="200" RenderTransformOrigin="0.5,0.5" Click="CW_Login_F_Close"/>
 
     </Grid>
 </Window>
