@@ -80,6 +80,11 @@ namespace SRUW
             }
             else
             {
+                var existingWindow = Application.Current.Windows.Cast<Window>().SingleOrDefault(x => x.Title.Equals("SRUW - Logowanie"));
+                if (existingWindow != null)
+                {
+                    existingWindow.Close();
+                }
                 MessageBox.Show("Błąd połączenia z bazą danych systemu. Napewno posiadasz połączenie z internetem?", "SRUW - Błąd Połączenia", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
@@ -106,6 +111,11 @@ namespace SRUW
             }
             else
             {
+                var existingWindow = Application.Current.Windows.Cast<Window>().SingleOrDefault(x => x.Title.Equals("SRUW - Rejestracja"));
+                if (existingWindow != null)
+                {
+                    existingWindow.Close();
+                }
                 MessageBox.Show("Błąd połączenia z bazą danych systemu. Napewno posiadasz połączenie z internetem?", "SRUW - Błąd Połączenia", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }

@@ -11,7 +11,7 @@ namespace SRUW
     class DB_Resolver
     {
         private string db_connectionstring = "datasource = 127.0.0.1; port=3306;username=root;password=;database=sruwdb;";
-        private string db_networkingquery = "SELECT * from sruw_accounts";
+        private string db_networkingquery = "SELECT id from sruw_accounts";
         private string db_connectionstatus = "unknown";
         public void DB_ConnectionOpener()
         {
@@ -27,13 +27,14 @@ namespace SRUW
                 {
                     while (datareader.Read())
                     {
-                        string[] row = { datareader.GetString(0), datareader.GetString(1), datareader.GetString(2), datareader.GetString(3) };
+                        string[] row = { datareader.GetString(0) };
                         db_connectionstatus = "Online";
                     }
                 }
                 else
                 {
                     MessageBox.Show("Baza systemu nie posiada rekordów", "SRUW - Błąd Bazodanowy", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    db_connectionstatus = "Online";
                 }
                 DB_ConnectionCloser(dbconnectionobj);
             }
@@ -58,6 +59,10 @@ namespace SRUW
             {
                 return false;
             }
+        }
+        public void DB_ConnectionInsert()
+        {
+            //not implemented
         }
     }
 }
