@@ -54,7 +54,7 @@ namespace SRUW
             {
                 return true;
             }
-            else if(db_connectionstatus == "Offline"){
+            else if (db_connectionstatus == "Offline") {
                 return false;
             }
             else
@@ -63,7 +63,7 @@ namespace SRUW
             }
         }
 
-        public void DB_ConnectionComboBox(ComboBox cbname) 
+        public void DB_ConnectionComboBoxUniver(ComboBox cbname)
         {
 
             String db_comboboxpull = "SELECT id,name FROM sruw_univer WHERE id != 1";
@@ -80,12 +80,41 @@ namespace SRUW
                 {
                     while (datareader.Read())
                     {
-                        string[] row = { datareader.GetString(0),datareader.GetString(1) };
-                        cbname.ItemsSource = row;
-                        cbname.DisplayMemberPath = "id";
-                        cbname.SelectedValuePath = "name";
+                        string[] row = { datareader.GetString(0), datareader.GetString(1) };
+                        cbname.Items.Add(datareader["name"]);
                     }
                 }
+                cbname.SelectedIndex = 0;
+                DB_ConnectionCloser(dbconnectionobj);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Nie można załadować uczelni", "SRUW - Błąd Bazodanowy", MessageBoxButton.OK, MessageBoxImage.Warning);
+            };
+        }
+
+        public void DB_ConnectionComboBoxUniverAvail(ComboBox cbname)
+        {
+
+            String db_comboboxpull = "SELECT id,name FROM sruw_univer_avail WHERE id != 1";
+            MySqlConnection dbconnectionobj = new MySqlConnection(db_connectionstring);
+            MySqlCommand execcommand = new MySqlCommand(db_comboboxpull, dbconnectionobj);
+            execcommand.CommandTimeout = 30;
+            MySqlDataReader datareader;
+            DataSet dscombouni = new DataSet();
+            try
+            {
+                dbconnectionobj.Open();
+                datareader = execcommand.ExecuteReader();
+                if (datareader.HasRows)
+                {
+                    while (datareader.Read())
+                    {
+                        string[] row = { datareader.GetString(0), datareader.GetString(1) };
+                        cbname.Items.Add(datareader["name"]);
+                    }
+                }
+                cbname.SelectedIndex = 0;
                 DB_ConnectionCloser(dbconnectionobj);
             }
             catch (Exception exception)
@@ -99,4 +128,3 @@ namespace SRUW
         }
     }
 }
-

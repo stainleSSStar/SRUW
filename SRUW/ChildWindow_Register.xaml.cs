@@ -37,7 +37,8 @@ namespace SRUW
         private void CW_Register_ComboBoxFiller()
         {
             DB_Resolver comboboxinitializer = new DB_Resolver();
-            comboboxinitializer.DB_ConnectionComboBox(CW_Register_University_ComboBox);
+            comboboxinitializer.DB_ConnectionComboBoxUniver(CW_Register_University_ComboBox);
+            comboboxinitializer.DB_ConnectionComboBoxUniverAvail(CW_Register_University_Available_ComboBox);
         }
 
         private void emailcorrector_status_changer(int input)
