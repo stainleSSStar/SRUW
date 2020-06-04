@@ -25,12 +25,19 @@ namespace SRUW
         public ChildWindow_Register()
         {
             InitializeComponent();
+            CW_Register_ComboBoxFiller();
         }
         private void CW_Register_F_Close(object sender, RoutedEventArgs e)
         {
             Close();
             var existingWindow = Application.Current.Windows.Cast<Window>().SingleOrDefault(x => x.Title.Equals("System Rekrutacji Uczelni Wyższych"));
             existingWindow.Activate();
+        }
+
+        private void CW_Register_ComboBoxFiller()
+        {
+            DB_Resolver comboboxinitializer = new DB_Resolver();
+            comboboxinitializer.DB_ConnectionComboBox(CW_Register_University_ComboBox);
         }
 
         private void emailcorrector_status_changer(int input)
@@ -161,19 +168,27 @@ namespace SRUW
                 }
                 else
                 {
-                    String peselinput = CW_Register_Pesel_Field.Text;
-                    int length = peselinput.Length;
-                    if (length == 11)
+                    try
                     {
-                        CW_Register_peselcheck_Label.Content = "";
-                        peselcorrector_status_changer(1);
+                        String peselinput = CW_Register_Pesel_Field.Text;
+                        int length = peselinput.Length;
+                        if (length == 11)
+                        {
+                            double isanumber = Convert.ToDouble(peselinput);
+                            CW_Register_peselcheck_Label.Content = "";
+                            peselcorrector_status_changer(1);
+                        }
+                        else
+                        {
+                            //Leave As Is
+                            CW_Register_peselcheck_Label.Content = "Wprowadzony numer PESEL jest niepoprawny.";
+                            peselcorrector_status_changer(0);
+                        }
                     }
-                    else
-                    {
-                        //Leave As Is
+                    catch(Exception exception) {
                         CW_Register_peselcheck_Label.Content = "Wprowadzony numer PESEL jest niepoprawny.";
                         peselcorrector_status_changer(0);
-                    }
+                    };
                 }
             }
         }
@@ -186,19 +201,28 @@ namespace SRUW
             }
             else
             {
-                String peselinput = CW_Register_Pesel_Field.Text;
-                int length = peselinput.Length;
-                if (length == 11)
+                try
                 {
-                    CW_Register_peselcheck_Label.Content = "";
-                    peselcorrector_status_changer(1);
+                    String peselinput = CW_Register_Pesel_Field.Text;
+                    int length = peselinput.Length;
+                    if (length == 11)
+                    {
+                        double isanumber = Convert.ToDouble(peselinput);
+                        CW_Register_peselcheck_Label.Content = "";
+                        peselcorrector_status_changer(1);
+                    }
+                    else
+                    {
+                        //Leave As Is
+                        CW_Register_peselcheck_Label.Content = "Wprowadzony numer PESEL jest niepoprawny.";
+                        peselcorrector_status_changer(0);
+                    }
                 }
-                else
+                catch (Exception exception)
                 {
-                    //Leave As Is
                     CW_Register_peselcheck_Label.Content = "Wprowadzony numer PESEL jest niepoprawny.";
                     peselcorrector_status_changer(0);
-                }
+                };
             }
         }
 
@@ -637,8 +661,17 @@ namespace SRUW
             connectioncheck.DB_ConnectionOpener();
             if (connectioncheck.DB_ConnectionChecker() == true)
             {
-                MessageBox.Show("JestOK");
-            }
+                    MessageBoxResult Result = MessageBox.Show("Wszystko wygląda poprawnie. Kontynuować?", "SRUW - Akceptacja", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                    if (Result == MessageBoxResult.Yes)
+                    {
+                        MessageBox.Show("OK");
+                    }
+                    else if (Result == MessageBoxResult.No)
+                    {
+                        var existingWindow = Application.Current.Windows.Cast<Window>().SingleOrDefault(x => x.Title.Equals("SRUW - Rejestracja"));
+                        existingWindow.Activate();
+                    }
+                }
             else
             {
                 MessageBox.Show("Błąd połączenia z bazą danych systemu. Napewno posiadasz połączenie z internetem?", "SRUW - Błąd Połączenia", MessageBoxButton.OK, MessageBoxImage.Warning);

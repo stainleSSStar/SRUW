@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using MySql.Data.MySqlClient;
 
 namespace SRUW
@@ -59,6 +61,37 @@ namespace SRUW
             {
                 return false;
             }
+        }
+
+        public void DB_ConnectionComboBox(ComboBox cbname) 
+        {
+
+            String db_comboboxpull = "SELECT id,name FROM sruw_univer WHERE id != 1";
+            MySqlConnection dbconnectionobj = new MySqlConnection(db_connectionstring);
+            MySqlCommand execcommand = new MySqlCommand(db_comboboxpull, dbconnectionobj);
+            execcommand.CommandTimeout = 30;
+            MySqlDataReader datareader;
+            DataSet dscombouni = new DataSet();
+            try
+            {
+                dbconnectionobj.Open();
+                datareader = execcommand.ExecuteReader();
+                if (datareader.HasRows)
+                {
+                    while (datareader.Read())
+                    {
+                        string[] row = { datareader.GetString(0),datareader.GetString(1) };
+                        cbname.ItemsSource = row;
+                        cbname.DisplayMemberPath = "id";
+                        cbname.SelectedValuePath = "name";
+                    }
+                }
+                DB_ConnectionCloser(dbconnectionobj);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Nie można załadować uczelni", "SRUW - Błąd Bazodanowy", MessageBoxButton.OK, MessageBoxImage.Warning);
+            };
         }
         public void DB_ConnectionInsert()
         {
