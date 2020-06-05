@@ -658,21 +658,54 @@ namespace SRUW
         {
             bool registerformstatus = CW_Register_FieldsChecker();
             if (registerformstatus == true) {
-            DB_Resolver connectioncheck = new DB_Resolver();
-            connectioncheck.DB_ConnectionOpener();
-            if (connectioncheck.DB_ConnectionChecker() == true)
+            DB_Resolver connection = new DB_Resolver();
+            connection.DB_ConnectionOpener();
+            if (connection.DB_ConnectionChecker() == true)
             {
                     MessageBoxResult Result = MessageBox.Show("Wszystko wygląda poprawnie. Kontynuować?", "SRUW - Akceptacja", MessageBoxButton.YesNo, MessageBoxImage.Information);
                     if (Result == MessageBoxResult.Yes)
                     {
-                        MessageBox.Show("OK");
+                        connection.DB_ConnectionInsert(CW_Register_polish_Field, CW_Register_maths_Field, CW_Register_english_Field, CW_Register_add1pol_Field, CW_Register_add2mat_Field, CW_Register_add3eng_Field, CW_Register_Name_Field, CW_Register_Pesel_Field, CW_Register_Email_Field, CW_Register_Address1_Field, CW_Register_Address2_Field, CW_Register_University_ComboBox,CW_Register_University_Available_ComboBox);
+                        MessageBoxResult Result2 = MessageBox.Show("Użytkownik został dodany do systemu." + System.Environment.NewLine +
+                            "Twoje dane do logowania to : " + System.Environment.NewLine +
+                            "Login : " + connection.usedlogin + System.Environment.NewLine +
+                            "Hasło : " + connection.generatedpassword + System.Environment.NewLine +
+                            "Skopiować dane do schowka systemowego?", "SRUW - Pomyślnie zarejestrowano", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                        if (Result2 == MessageBoxResult.Yes)
+                        {
+                            String SRUWCLIPB1= "==============================================" + System.Environment.NewLine;
+                            String SRUWCLIPB2 = "SRUW - WYGENEROWANE POŚWIADCZENIA" + System.Environment.NewLine;
+                            String SRUWCLIPB3 = "==============================================" + System.Environment.NewLine;
+                            String SRUWCLIPB4 = "LOGIN : " + connection.usedlogin + System.Environment.NewLine;
+                            String SRUWCLIPB5 = "HASŁO : " + connection.generatedpassword + System.Environment.NewLine;
+                            String SRUWCLIPB6 = "==============================================" + System.Environment.NewLine;
+                            Clipboard.SetText(SRUWCLIPB1 + SRUWCLIPB2 + SRUWCLIPB3 + SRUWCLIPB4 + SRUWCLIPB5 + SRUWCLIPB6);
+                            MessageBox.Show("Pomyślnie skopiowano poświadczenia do schowka systemowego. Rejestracja Pomyślna.", "SRUW - Operacja pomyślna.", MessageBoxButton.OK, MessageBoxImage.Information);
+                            Close();
+                            var existingWindow = Application.Current.Windows.Cast<Window>().SingleOrDefault(x => x.Title.Equals("System Rekrutacji Uczelni Wyższych"));
+                            existingWindow.Activate();
+                        }
+                        else if(Result2 == MessageBoxResult.No)
+                        {
+                            MessageBox.Show("Rejestracja Pomyślna. Powracanie do okna głównego.", "SRUW - Operacja pomyślna.", MessageBoxButton.OK, MessageBoxImage.Information);
+                            Close();
+                            var existingWindow = Application.Current.Windows.Cast<Window>().SingleOrDefault(x => x.Title.Equals("System Rekrutacji Uczelni Wyższych"));
+                            existingWindow.Activate();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Rejestracja Pomyślna. Powracanie do okna głównego.", "SRUW - Operacja pomyślna.", MessageBoxButton.OK, MessageBoxImage.Information);
+                            Close();
+                            var existingWindow = Application.Current.Windows.Cast<Window>().SingleOrDefault(x => x.Title.Equals("System Rekrutacji Uczelni Wyższych"));
+                            existingWindow.Activate();
+                        }
                     }
                     else if (Result == MessageBoxResult.No)
                     {
                         var existingWindow = Application.Current.Windows.Cast<Window>().SingleOrDefault(x => x.Title.Equals("SRUW - Rejestracja"));
                         existingWindow.Activate();
                     }
-                }
+            }
             else
             {
                 MessageBox.Show("Błąd połączenia z bazą danych systemu. Napewno posiadasz połączenie z internetem?", "SRUW - Błąd Połączenia", MessageBoxButton.OK, MessageBoxImage.Warning);
