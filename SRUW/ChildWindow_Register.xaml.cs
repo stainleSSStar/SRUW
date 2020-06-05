@@ -685,5 +685,11 @@ namespace SRUW
                 MessageBox.Show("Nie wszystkie pola są zapełnione lub poprawnie wypełnione.", "SRUW - Błąd Rejestracji", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
+
+        private void CW_Register_University_Available_Route_Switcher(object sender, RoutedEventArgs e)
+        {
+            DB_Resolver comboboxinitializer = new DB_Resolver();
+            comboboxinitializer.DB_ConnectionComboBoxUniverAvailSwitch(CW_Register_University_Available_ComboBox, CW_Register_University_ComboBox);
+        }
     }
 }

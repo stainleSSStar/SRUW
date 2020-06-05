@@ -71,7 +71,6 @@ namespace SRUW
             MySqlCommand execcommand = new MySqlCommand(db_comboboxpull, dbconnectionobj);
             execcommand.CommandTimeout = 30;
             MySqlDataReader datareader;
-            DataSet dscombouni = new DataSet();
             try
             {
                 dbconnectionobj.Open();
@@ -95,13 +94,12 @@ namespace SRUW
 
         public void DB_ConnectionComboBoxUniverAvail(ComboBox cbname)
         {
-
-            String db_comboboxpull = "SELECT id,name FROM sruw_univer_avail WHERE id != 1";
+            cbname.Items.Clear();
+            String db_comboboxpull = "SELECT id,name FROM sruw_univer_avail WHERE iduniver = 2";
             MySqlConnection dbconnectionobj = new MySqlConnection(db_connectionstring);
             MySqlCommand execcommand = new MySqlCommand(db_comboboxpull, dbconnectionobj);
             execcommand.CommandTimeout = 30;
             MySqlDataReader datareader;
-            DataSet dscombouni = new DataSet();
             try
             {
                 dbconnectionobj.Open();
@@ -119,7 +117,36 @@ namespace SRUW
             }
             catch (Exception exception)
             {
-                MessageBox.Show("Nie można załadować uczelni", "SRUW - Błąd Bazodanowy", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Nie można załadować przedmiotów.", "SRUW - Błąd Bazodanowy", MessageBoxButton.OK, MessageBoxImage.Warning);
+            };
+        }
+
+        public void DB_ConnectionComboBoxUniverAvailSwitch(ComboBox cbname2, ComboBox cbname1)
+        {
+            cbname2.Items.Clear();
+            String db_comboboxpull = "SELECT id,name FROM sruw_univer_avail WHERE iduniver = "+(cbname1.SelectedIndex+2).ToString();
+            MySqlConnection dbconnectionobj = new MySqlConnection(db_connectionstring);
+            MySqlCommand execcommand = new MySqlCommand(db_comboboxpull, dbconnectionobj);
+            execcommand.CommandTimeout = 30;
+            MySqlDataReader datareader;
+            try
+            {
+                dbconnectionobj.Open();
+                datareader = execcommand.ExecuteReader();
+                if (datareader.HasRows)
+                {
+                    while (datareader.Read())
+                    {
+                        string[] row = { datareader.GetString(0), datareader.GetString(1) };
+                        cbname2.Items.Add(datareader["name"]);
+                    }
+                }
+                cbname2.SelectedIndex = 0;
+                DB_ConnectionCloser(dbconnectionobj);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Nie można załadować przedmiotów.", "SRUW - Błąd Bazodanowy", MessageBoxButton.OK, MessageBoxImage.Warning);
             };
         }
         public void DB_ConnectionInsert()
