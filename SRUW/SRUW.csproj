@@ -83,6 +83,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ChildWindow_Status.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ChildWindow_SysInf.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -100,6 +104,9 @@
     </Compile>
     <Compile Include="ChildWindow_Register.xaml.cs">
       <DependentUpon>ChildWindow_Register.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ChildWindow_Status.xaml.cs">
+      <DependentUpon>ChildWindow_Status.xaml</DependentUpon>
     </Compile>
     <Compile Include="ChildWindow_SysInf.xaml.cs">
       <DependentUpon>ChildWindow_SysInf.xaml</DependentUpon>

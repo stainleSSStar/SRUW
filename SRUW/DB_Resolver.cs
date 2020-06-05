@@ -246,5 +246,9 @@ namespace SRUW
             String randomizedstring = new string(stringChars);
             randomstring = randomizedstring;
         }
+
+        public void DB_Resolver_Login_Queue(TextBox login, PasswordBox password) {
+        //NOT IMPLEMENTED
+        }
     }
 }

@@ -15,7 +15,7 @@
         <TextBox Name="CW_Login_Pesel_Field" Width="250" MaxWidth="240" MinWidth="240" Height="30" MinHeight="20" MaxHeight="20" Background="White" Text="" Margin="324,110,68,229" IsEnabled="True" IsReadOnly="False" BorderBrush="Gray" BorderThickness="1" FontSize="14" MaxLength="30" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
         <PasswordBox Name="CW_Login_AuthCode_Field" Width="250" MaxWidth="240" MinWidth="240" Height="30" MinHeight="20" MaxHeight="20" Background="White" Password="" Margin="324,166,68,173" IsEnabled="True" BorderBrush="Gray" BorderThickness="1" FontSize="14" MaxLength="30" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
 
-        <Button Content="Zaloguj" Name="CW_Login_Logon_Button" HorizontalAlignment="Left" Margin="218,266,0,0" VerticalAlignment="Top" Width="200" Height="30" MaxHeight="30" MinHeight="30" MaxWidth="200" MinWidth="200" RenderTransformOrigin="0.5,0.5"/>
+        <Button Content="Zaloguj" Name="CW_Login_Login_Button" HorizontalAlignment="Left" Margin="218,266,0,0" VerticalAlignment="Top" Width="200" Height="30" MaxHeight="30" MinHeight="30" MaxWidth="200" MinWidth="200" RenderTransformOrigin="0.5,0.5" Click="CW_Login_F_Login_Attempt"/>
         <Button Content="Wróć" Name="CW_Login_Close_Button" HorizontalAlignment="Left" Margin="218,301,0,0" VerticalAlignment="Top" Width="200" Height="30" MaxHeight="30" MinHeight="30" MaxWidth="200" MinWidth="200" RenderTransformOrigin="0.5,0.5" Click="CW_Login_F_Close"/>
 
     </Grid>
