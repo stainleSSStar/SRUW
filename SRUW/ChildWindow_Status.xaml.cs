@@ -28,6 +28,8 @@ namespace SRUW
         {
             InitializeComponent();
             this.usedid = usedid;
+            DB_Resolver informationpreload = new DB_Resolver();
+            informationpreload.DB_Resolver_Status_Queue(CW_Status_Pesel_Field,CW_Status_Name_Field,CW_Status_Email_Field,CW_Status_Address1_Field,CW_Status_Address2_Field,CW_Status_Polish_Field,CW_Status_Maths_Field,CW_Status_English_Field,CW_Status_Pol1Add_Field,CW_Status_Mat2Add_Field,CW_Status_Eng3Add_Field,CW_Status_Route_Field,CW_Status_Status_Field,CW_Status_Points_Field, usedid);
         }
 
         private void CW_Status_F_Close(object sender, RoutedEventArgs e)

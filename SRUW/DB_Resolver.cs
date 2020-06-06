@@ -335,9 +335,148 @@ namespace SRUW
                 MessageBox.Show("Błąd Bazodanowy. Operacja nie powiodła się.", "SRUW - Błąd Bazodanowy", MessageBoxButton.OK, MessageBoxImage.Error);
             };
         }
-        public void DB_Resolver_Status_Queue()
+        public void DB_Resolver_Status_Queue(TextBox pesel,TextBox Name,TextBox Email,TextBox Address1,TextBox Address2,TextBox pol,TextBox mat,TextBox eng,TextBox pol1add,TextBox mat2add,TextBox eng3add,TextBox route,TextBox status,TextBox points, int usedid)
         {
-            //not implemented
+            MySqlConnection dbconnectionobj = new MySqlConnection(db_connectionstring);;
+            String peselholder = "";
+            String nameholder = "";
+            String emailholder = "";
+            String address1holder = "";
+            String address2holder = "";
+            String polholder = "";
+            String matholder = "";
+            String engholder = "";
+            String pol1addholder = "";
+            String mat2addholder = "";
+            String eng3addholder = "";
+            String universitynameholder = "";
+            String routeholder = "";
+            String statusholder = "";
+            String pointsholder = "";
+            int calculatedpointsholder = 0;
+            int iduniverholder = 0;
+            int idgradesholder = 0;
+            int iduniveravailholder = 0;
+
+            String db_selectionquery1 = "SELECT name,pesel,email,address1,address2,iduniver,idgrades,iduniveravail from sruw_accounts WHERE id = @userid";
+            MySqlCommand execcommand1 = new MySqlCommand(db_selectionquery1, dbconnectionobj);
+            execcommand1.Parameters.AddWithValue("@userid", usedid);
+            execcommand1.CommandTimeout = 30;
+
+            String db_selectionquery2 = "SELECT polish,english,maths,add1,add2,add3 from sruw_grades WHERE id = @gradesid";
+            MySqlCommand execcommand2 = new MySqlCommand(db_selectionquery2, dbconnectionobj);
+            execcommand2.CommandTimeout = 30;
+
+            String db_selectionquery3 = "SELECT name from sruw_univer WHERE id = @univerid";
+            MySqlCommand execcommand3 = new MySqlCommand(db_selectionquery3, dbconnectionobj);
+            execcommand3.CommandTimeout = 30;
+
+            String db_selectionquery4 = "SELECT name,pointtresh from sruw_univer_avail WHERE iduniver = @univerid AND id=@iduniveravail" ;
+            MySqlCommand execcommand4 = new MySqlCommand(db_selectionquery4, dbconnectionobj);
+            execcommand4.CommandTimeout = 30;
+
+            MySqlDataReader datareader;
+            try
+            {
+                dbconnectionobj.Open();
+                datareader = execcommand1.ExecuteReader();
+                if (datareader.HasRows)
+                {
+                    while (datareader.Read())
+                    {
+                        nameholder = datareader.GetString(0);
+                        peselholder = datareader.GetString(1);
+                        emailholder = datareader.GetString(2);
+                        address1holder = datareader.GetString(3);
+                        address2holder = datareader.GetString(4);
+                        iduniverholder = datareader.GetInt32(5);
+                        idgradesholder = datareader.GetInt32(6);
+                        iduniveravailholder = datareader.GetInt32(7);
+                    }
+                }
+                datareader.Close();
+                execcommand2.Parameters.AddWithValue("@gradesid", idgradesholder);
+
+                datareader = execcommand2.ExecuteReader();
+                if (datareader.HasRows)
+                {
+                    while (datareader.Read())
+                    {
+                        polholder = datareader.GetString(0);
+                        engholder = datareader.GetString(1);
+                        matholder = datareader.GetString(2);
+                        pol1addholder = datareader.GetString(3);
+                        mat2addholder = datareader.GetString(4);
+                        eng3addholder = datareader.GetString(5);
+                    }
+                }
+                datareader.Close();
+                execcommand3.Parameters.AddWithValue("@univerid", iduniverholder);
+                datareader = execcommand3.ExecuteReader();
+                if (datareader.HasRows)
+                {
+                    while (datareader.Read())
+                    {
+                        universitynameholder = datareader.GetString(0);
+                    }
+                }
+                datareader.Close();
+                execcommand4.Parameters.AddWithValue("@univerid", iduniverholder);
+                execcommand4.Parameters.AddWithValue("@iduniveravail", iduniveravailholder);
+                datareader = execcommand4.ExecuteReader();
+                if (datareader.HasRows)
+                {
+                    while (datareader.Read())
+                    {
+                        routeholder = datareader.GetString(0);
+                        pointsholder = datareader.GetString(1);
+                    }
+                }
+                datareader.Close();
+                DB_ConnectionCloser(dbconnectionobj);
+                pesel.Text = peselholder;
+                Name.Text = nameholder;
+                Email.Text = emailholder;
+                Address1.Text = address1holder;
+                Address2.Text = address2holder;
+                pol.Text = polholder;
+                mat.Text = matholder;
+                eng.Text = engholder;
+                pol1add.Text = pol1addholder;
+                mat2add.Text = mat2addholder;
+                eng3add.Text = eng3addholder;
+                route.Text = universitynameholder + " - " + routeholder;
+                DB_Resolver calculation = new DB_Resolver();
+                calculation.DB_Resolver_StatusPointsCalculator(polholder, matholder, engholder, pol1addholder, mat2addholder, eng3addholder,out calculatedpointsholder);
+                // ZMIENIC
+                if (pointsholder == "NIEUSTAWIONE")
+                {
+                    statusholder = "OCZEKUJĄCY";
+                }
+                else if (Convert.ToInt32(pointsholder) < calculatedpointsholder)
+                {
+                    statusholder = "PRZYJĘTY";
+                }
+                else if(Convert.ToInt32(pointsholder) > calculatedpointsholder)
+                {
+                    statusholder = "ODRZUCONY";
+                }
+                else if (Convert.ToInt32(pointsholder) == calculatedpointsholder)
+                {
+                    statusholder = "PRZYJETY";
+                }
+                status.Text = statusholder;
+                points.Text = Convert.ToString(calculatedpointsholder);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Błąd Bazodanowy. Operacja nie powiodła się.", "SRUW - Błąd Bazodanowy", MessageBoxButton.OK, MessageBoxImage.Error);
+            };
+        }
+
+        public void DB_Resolver_StatusPointsCalculator(String o1, String o2, String o3, String o4, String o5, String o6, out int calculatedpoints)
+        {
+            calculatedpoints = Convert.ToInt32(o1) + Convert.ToInt32(o2) + Convert.ToInt32(o3) + Convert.ToInt32(o4) + Convert.ToInt32(o5) + Convert.ToInt32(o6);
         }
     }
 }
