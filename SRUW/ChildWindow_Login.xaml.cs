@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
+using System.Net.Configuration;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -33,52 +34,74 @@ namespace SRUW
         }
         private void CW_Login_F_Login_Attempt(object sender, RoutedEventArgs e)
         {
-            DB_Resolver dbinterface = new DB_Resolver();
-            dbinterface.DB_ConnectionOpener();
-            if (dbinterface.DB_ConnectionChecker())
+            String usedlogin = CW_Login_Pesel_Field.Text;
+            String usedauthcode = CW_Login_AuthCode_Field.Password;
+            String loginstatus = "";
+            String logintype = "";
+            DB_Resolver connection = new DB_Resolver();
+            connection.DB_ConnectionOpener();
+            connection.DB_ConnectionChecker();
+            connection.DB_Resolver_Login_Queue(usedlogin,usedauthcode,out loginstatus,out logintype);
+            if(loginstatus == "OUT")
             {
-                var existingWindow = Application.Current.Windows.Cast<Window>().SingleOrDefault(x => x.Title.Equals("SRUW - Status"));
-                var existingWindowadmin = Application.Current.Windows.Cast<Window>().SingleOrDefault(x => x.Title.Equals("SRUW - Panel Administratora"));
-
-                //Sprawdzenie poswiadczen
-
-                if (existingWindow == null && existingWindowadmin == null)
+                var existingWindow = Application.Current.Windows.Cast<Window>().SingleOrDefault(x => x.Title.Equals("SRUW - Logowanie"));
+                    existingWindow.WindowState = WindowState.Normal;
+                    existingWindow.Activate();
+            }
+            else
+            {
+                if(logintype == "STANDARD")
                 {
-                    // zaleznosc od poswiadczen
                     Hide();
-                    Window ChildWindow_Status = new ChildWindow_Status();
-                    ChildWindow_Status.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                    ChildWindow_Status.Owner = this;
-                    ChildWindow_Status.Show();
-                }
-                else
-                {
-                    if (existingWindow != null)
+                    var existingWindow = Application.Current.Windows.Cast<Window>().SingleOrDefault(x => x.Title.Equals("SRUW - Status"));
+
+                    if (existingWindow == null)
+                    {
+                        Window ChildWindow_Status = new ChildWindow_Status();
+                        ChildWindow_Status.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                        ChildWindow_Status.Owner = this;
+                        ChildWindow_Status.Show();
+                    }
+                    else
                     {
                         existingWindow.WindowState = WindowState.Normal;
                         existingWindow.Activate();
                     }
-                    if (existingWindowadmin != null)
+                }
+                else
+                {
+                    Hide();
+                    var existingWindow = Application.Current.Windows.Cast<Window>().SingleOrDefault(x => x.Title.Equals("SRUW - Panel Administratora"));
+
+                    if (existingWindow == null)
                     {
-                        existingWindowadmin.WindowState = WindowState.Normal;
-                        existingWindowadmin.Activate();
+                        Window ChildWindow_AdmCtr = new ChildWindow_AdmCtr();
+                        ChildWindow_AdmCtr.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                        ChildWindow_AdmCtr.Owner = this;
+                        ChildWindow_AdmCtr.Show();
+                    }
+                    else
+                    {
+                        existingWindow.WindowState = WindowState.Normal;
+                        existingWindow.Activate();
                     }
                 }
             }
-            else
+        }
+
+        private void CW_Login_Pesel_Field_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
             {
-                var existingWindow = Application.Current.Windows.Cast<Window>().SingleOrDefault(x => x.Title.Equals("SRUW - Logowanie"));
-                if (existingWindow != null)
-                {
-                    existingWindow.WindowState = WindowState.Normal;
-                    existingWindow.Activate();
-                }
-                else {
-                    var existingWindowbackup = Application.Current.Windows.Cast<Window>().SingleOrDefault(x => x.Title.Equals("System Rekrutacji Uczelni Wyższych"));
-                    existingWindowbackup.WindowState = WindowState.Normal;
-                    existingWindowbackup.Activate();
-                }
-                MessageBox.Show("Błąd połączenia z bazą danych systemu. Napewno posiadasz połączenie z internetem?", "SRUW - Błąd Połączenia", MessageBoxButton.OK, MessageBoxImage.Warning);
+                CW_Login_AuthCode_Field.Focus();
+            }
+        }
+
+        private void CW_Login_AuthCode_Field_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                CW_Login_F_Login_Attempt(sender, e);
             }
         }
     }

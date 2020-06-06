@@ -247,8 +247,43 @@ namespace SRUW
             randomstring = randomizedstring;
         }
 
-        public void DB_Resolver_Login_Queue(TextBox login, PasswordBox password) {
-        //NOT IMPLEMENTED
+        public void DB_Resolver_Login_Queue(String login, String password, out String loginstatus, out String logintype) {
+            String db_loginattemptquery = "SELECT type from sruw_accounts WHERE pesel=@usedlogin AND password = @usedpassword";
+            MySqlConnection dbconnectionobj = new MySqlConnection(db_connectionstring);
+            MySqlCommand execcommand1 = new MySqlCommand(db_loginattemptquery, dbconnectionobj);
+            execcommand1.Parameters.AddWithValue("@usedlogin", login);
+            execcommand1.Parameters.AddWithValue("@usedpassword", password);
+            execcommand1.CommandTimeout = 30;
+            MySqlDataReader datareader;
+            String Loginstatusholder = "";
+            String Typeholder = "";
+            try
+            {
+                dbconnectionobj.Open();
+                datareader = execcommand1.ExecuteReader();
+                if (datareader.HasRows)
+                {
+                    while (datareader.Read())
+                    {
+                        Typeholder = datareader.GetString(0);
+                        Loginstatusholder = "IN";
+                    }
+                }
+                else
+                {
+                    Loginstatusholder = "OUT";
+                    Typeholder = null;
+                    MessageBox.Show("Błąd logowania. Podano złe poświadczenia.", "SRUW - Błąd Logowania", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+                datareader.Close();
+                DB_ConnectionCloser(dbconnectionobj);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Błąd logowania. Czy posiadasz połączenie z internetem?", "SRUW - Błąd Połączenia", MessageBoxButton.OK, MessageBoxImage.Warning);
+            };
+            loginstatus = Loginstatusholder;
+            logintype = Typeholder;
         }
     }
 }

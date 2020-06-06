@@ -74,6 +74,11 @@ namespace SRUW
                 }
                 else
                 {
+                    existingWindow.Close();
+                    Window ChildWindow_Login = new ChildWindow_Login();
+                    ChildWindow_Login.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    ChildWindow_Login.Owner = this;
+                    ChildWindow_Login.Show();
                     existingWindow.WindowState = WindowState.Normal;
                     existingWindow.Activate();
                 }

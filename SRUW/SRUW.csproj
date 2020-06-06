@@ -75,6 +75,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="ChildWindow_AdmCtr.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ChildWindow_Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -98,6 +102,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ChildWindow_AdmCtr.xaml.cs">
+      <DependentUpon>ChildWindow_AdmCtr.xaml</DependentUpon>
     </Compile>
     <Compile Include="ChildWindow_Login.xaml.cs">
       <DependentUpon>ChildWindow_Login.xaml</DependentUpon>
