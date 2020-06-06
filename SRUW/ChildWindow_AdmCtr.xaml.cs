@@ -19,6 +19,7 @@ namespace SRUW
     /// </summary>
     public partial class ChildWindow_AdmCtr : Window
     {
+        private int usedid;
         public ChildWindow_AdmCtr()
         {
             InitializeComponent();
@@ -28,6 +29,5 @@ namespace SRUW
             InitializeComponent();
             this.usedid = usedid;
         }
-        private int usedid;
     }
 }

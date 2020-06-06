@@ -19,6 +19,7 @@ namespace SRUW
     /// </summary>
     public partial class ChildWindow_Status : Window
     {
+        public int usedid;
         public ChildWindow_Status()
         {
             InitializeComponent();
@@ -28,6 +29,13 @@ namespace SRUW
             InitializeComponent();
             this.usedid = usedid;
         }
-        public int usedid;
+
+        private void CW_Status_F_Close(object sender, RoutedEventArgs e)
+        {
+            Close();
+            var existingWindow = Application.Current.Windows.Cast<Window>().SingleOrDefault(x => x.Title.Equals("SRUW - Logowanie"));
+            var existingWindowMain = Application.Current.Windows.Cast<Window>().SingleOrDefault(x => x.Title.Equals("System Rekrutacji Uczelni Wyższych"));
+            existingWindow.Show();
+        }
     }
 }

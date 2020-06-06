@@ -47,7 +47,7 @@
         <TextBox Name="CW_Status_Points_Field" Width="255" MaxWidth="245" MinWidth="245" Height="32" MinHeight="20" MaxHeight="20" Background="White" Text="" Margin="348,748,389,189" IsEnabled="True" IsReadOnly="True" BorderBrush="Gray" BorderThickness="1" FontSize="14" HorizontalContentAlignment="Center"/>
 
 
-        <Button Content="Wróć" HorizontalAlignment="Left" Margin="42,913,0,0" VerticalAlignment="Top" Width="75" Height="30" RenderTransformOrigin="0.583,2.639"/>
+        <Button Content="Wróć" HorizontalAlignment="Left" Margin="42,913,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="CW_Status_F_Close"/>
         <Button Content="Modyfikuj" HorizontalAlignment="Left" Margin="869,923,0,0" VerticalAlignment="Top" Width="95" Height="30" RenderTransformOrigin="0.727,8.479" />
         <Button Content="Usuń Profil" HorizontalAlignment="Left" Margin="765,923,0,0" VerticalAlignment="Top" Width="75" Height="30" RenderTransformOrigin="0.727,8.479" />
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="480" Margin="42,65,0,0" VerticalAlignment="Top" Width="449"/>
