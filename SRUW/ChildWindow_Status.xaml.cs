@@ -23,5 +23,11 @@ namespace SRUW
         {
             InitializeComponent();
         }
+        public ChildWindow_Status(int usedid)
+        {
+            InitializeComponent();
+            this.usedid = usedid;
+        }
+        public int usedid;
     }
 }

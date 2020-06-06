@@ -16,6 +16,7 @@ namespace SRUW
         private String db_connectionstatus = "unknown";
         public String generatedpassword = "";
         public String usedlogin = "";
+        public String usedid = "";
         public void DB_ConnectionOpener()
         {
             String db_networkingquery = "SELECT id from sruw_accounts";
@@ -247,8 +248,8 @@ namespace SRUW
             randomstring = randomizedstring;
         }
 
-        public void DB_Resolver_Login_Queue(String login, String password, out String loginstatus, out String logintype) {
-            String db_loginattemptquery = "SELECT type from sruw_accounts WHERE pesel=@usedlogin AND password = @usedpassword";
+        public void DB_Resolver_Login_Queue(String login, String password, out String loginstatus, out String logintype, out int loginid) {
+            String db_loginattemptquery = "SELECT type,id from sruw_accounts WHERE pesel=@usedlogin AND password = @usedpassword";
             MySqlConnection dbconnectionobj = new MySqlConnection(db_connectionstring);
             MySqlCommand execcommand1 = new MySqlCommand(db_loginattemptquery, dbconnectionobj);
             execcommand1.Parameters.AddWithValue("@usedlogin", login);
@@ -257,6 +258,7 @@ namespace SRUW
             MySqlDataReader datareader;
             String Loginstatusholder = "";
             String Typeholder = "";
+            int Idholder =0;
             try
             {
                 dbconnectionobj.Open();
@@ -266,6 +268,7 @@ namespace SRUW
                     while (datareader.Read())
                     {
                         Typeholder = datareader.GetString(0);
+                        Idholder = datareader.GetInt32(1);
                         Loginstatusholder = "IN";
                     }
                 }
@@ -273,6 +276,7 @@ namespace SRUW
                 {
                     Loginstatusholder = "OUT";
                     Typeholder = null;
+                    Idholder = -1;
                     MessageBox.Show("Błąd logowania. Podano złe poświadczenia.", "SRUW - Błąd Logowania", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
                 datareader.Close();
@@ -284,6 +288,15 @@ namespace SRUW
             };
             loginstatus = Loginstatusholder;
             logintype = Typeholder;
+            loginid = Idholder;
+        }
+
+        public void DB_Resolver_StatusIDSETTER(String id) {
+
+        }
+        public void DB_Resolver_Status_Queue()
+        {
+            //not implemented
         }
     }
 }
