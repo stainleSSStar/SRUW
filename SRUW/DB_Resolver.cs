@@ -16,7 +16,6 @@ namespace SRUW
         private String db_connectionstatus = "unknown";
         public String generatedpassword = "";
         public String usedlogin = "";
-        public String usedid = "";
         public void DB_ConnectionOpener()
         {
             String db_networkingquery = "SELECT id from sruw_accounts";
@@ -291,8 +290,50 @@ namespace SRUW
             loginid = Idholder;
         }
 
-        public void DB_Resolver_StatusIDSETTER(String id) {
 
+        public void DB_Resolver_Status_User_Deletion(int id)
+        {
+            MySqlConnection dbconnectionobj = new MySqlConnection(db_connectionstring);
+            int Idgradesholder = 0;
+            String db_deleteaccountquery = "DELETE FROM sruw_accounts WHERE id = @userid";
+            MySqlCommand execcommand1 = new MySqlCommand(db_deleteaccountquery, dbconnectionobj);
+            execcommand1.Parameters.AddWithValue("@userid", id);
+            execcommand1.CommandTimeout = 30;
+            String db_gradesidlookupquery = "SELECT idgrades from sruw_accounts WHERE id = @userid";
+            MySqlCommand execcommand2 = new MySqlCommand(db_gradesidlookupquery, dbconnectionobj);
+            execcommand2.Parameters.AddWithValue("@userid", id);
+            execcommand2.CommandTimeout = 30;
+            String db_deletegradesquery = "DELETE FROM sruw_grades WHERE id = @removedusergradesid";
+            MySqlCommand execcommand3 = new MySqlCommand(db_deletegradesquery, dbconnectionobj);
+            execcommand3.CommandTimeout = 30;
+
+            MySqlDataReader datareader;
+            try
+            {
+                dbconnectionobj.Open();
+                datareader = execcommand2.ExecuteReader();
+                if (datareader.HasRows)
+                {
+                    while (datareader.Read())
+                    {
+                        Idgradesholder = datareader.GetInt32(0);
+                    }
+                }
+                else
+                {
+                    Idgradesholder = -1;
+                }
+                datareader.Close();
+                execcommand1.ExecuteNonQuery();
+                execcommand3.Parameters.AddWithValue("@removedusergradesid", Idgradesholder);
+                execcommand3.ExecuteNonQuery();
+                DB_ConnectionCloser(dbconnectionobj);
+                MessageBox.Show("Pomyślnie usunięto użytkownika z systemu.", "SRUW - Usuwanie Użytkownika", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Błąd Bazodanowy. Operacja nie powiodła się.", "SRUW - Błąd Bazodanowy", MessageBoxButton.OK, MessageBoxImage.Error);
+            };
         }
         public void DB_Resolver_Status_Queue()
         {

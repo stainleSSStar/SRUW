@@ -48,8 +48,8 @@
 
 
         <Button Content="Wróć" HorizontalAlignment="Left" Margin="42,913,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="CW_Status_F_Close"/>
-        <Button Content="Modyfikuj" HorizontalAlignment="Left" Margin="869,923,0,0" VerticalAlignment="Top" Width="95" Height="30" RenderTransformOrigin="0.727,8.479" />
-        <Button Content="Usuń Profil" HorizontalAlignment="Left" Margin="765,923,0,0" VerticalAlignment="Top" Width="75" Height="30" RenderTransformOrigin="0.727,8.479" />
+        <Button Content="Modyfikuj" HorizontalAlignment="Left" Margin="869,923,0,0" VerticalAlignment="Top" Width="95" Height="30"/>
+        <Button Content="Usuń Profil" HorizontalAlignment="Left" Margin="765,923,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="CW_Status_F_Delete_User"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="480" Margin="42,65,0,0" VerticalAlignment="Top" Width="449"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="480" Margin="496,65,0,0" VerticalAlignment="Top" Width="450"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="231" Margin="123,565,0,0" VerticalAlignment="Top" Width="700"/>

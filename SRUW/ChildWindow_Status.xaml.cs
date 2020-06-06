@@ -37,5 +37,34 @@ namespace SRUW
             var existingWindowMain = Application.Current.Windows.Cast<Window>().SingleOrDefault(x => x.Title.Equals("System Rekrutacji Uczelni Wyższych"));
             existingWindow.Show();
         }
+
+
+        private void CW_Status_F_Delete_User(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult Result = MessageBox.Show("Czy napewno chcesz usunąć wszystkie dane z systemu?", "SRUW - Usuwanie Użytkownika", MessageBoxButton.YesNo, MessageBoxImage.Information);
+            if (Result == MessageBoxResult.Yes)
+            {
+                DB_Resolver connection = new DB_Resolver();
+                connection.DB_ConnectionOpener();
+                if (connection.DB_ConnectionChecker())
+                {
+                    connection.DB_Resolver_Status_User_Deletion(usedid);
+                    Close();
+                    var existingWindow = Application.Current.Windows.Cast<Window>().SingleOrDefault(x => x.Title.Equals("System Rekrutacji Uczelni Wyższych"));
+                    existingWindow.WindowState = WindowState.Normal;
+                    existingWindow.Activate();
+                }
+                else
+                {
+                    MessageBox.Show("Błąd połączenia z bazą danych systemu. Napewno posiadasz połączenie z internetem?", "SRUW - Błąd Połączenia", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+            else if (Result == MessageBoxResult.No)
+            {
+                var existingWindow = Application.Current.Windows.Cast<Window>().SingleOrDefault(x => x.Title.Equals("SRUW - Status"));
+                existingWindow.WindowState = WindowState.Normal;
+                existingWindow.Activate();
+            }
+        }
     }
 }
