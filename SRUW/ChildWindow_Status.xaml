@@ -48,8 +48,10 @@
 
 
         <Button Content="Wróć" HorizontalAlignment="Left" Margin="42,913,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="CW_Status_F_Close"/>
-        <Button Content="Modyfikuj" HorizontalAlignment="Left" Margin="869,923,0,0" VerticalAlignment="Top" Width="95" Height="30"/>
+        <Button Content="Modyfikuj" Name="CW_Status_Modify_UnLock" HorizontalAlignment="Left" Margin="869,923,0,0" VerticalAlignment="Top" Width="95" Height="30" Click="CW_Status_F_Modify_User"/>
         <Button Content="Usuń Profil" HorizontalAlignment="Left" Margin="765,923,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="CW_Status_F_Delete_User"/>
+        <Button Content="Zapisz Zmiany" Name="CW_Status_Modify_Lock" HorizontalAlignment="Left" Margin="640,923,0,0" VerticalAlignment="Top" Width="95" Height="30" Visibility="Hidden" Click="CW_Status_F_Modify_User_Locker"/>
+
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="480" Margin="42,65,0,0" VerticalAlignment="Top" Width="449"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="480" Margin="496,65,0,0" VerticalAlignment="Top" Width="450"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="231" Margin="123,565,0,0" VerticalAlignment="Top" Width="700"/>

@@ -47,7 +47,8 @@ namespace SRUW
                 db_connectionstatus = "Offline";
             };
         }
-        public void DB_ConnectionCloser(MySqlConnection obj) {
+        public void DB_ConnectionCloser(MySqlConnection obj)
+        {
             obj.Close();
         }
         public bool DB_ConnectionChecker()
@@ -56,7 +57,8 @@ namespace SRUW
             {
                 return true;
             }
-            else if (db_connectionstatus == "Offline") {
+            else if (db_connectionstatus == "Offline")
+            {
                 return false;
             }
             else
@@ -64,7 +66,6 @@ namespace SRUW
                 return false;
             }
         }
-
         public void DB_ConnectionComboBoxUniver(ComboBox cbname)
         {
 
@@ -93,7 +94,6 @@ namespace SRUW
                 MessageBox.Show("Nie można załadować uczelni", "SRUW - Błąd Bazodanowy", MessageBoxButton.OK, MessageBoxImage.Warning);
             };
         }
-
         public void DB_ConnectionComboBoxUniverAvail(ComboBox cbname)
         {
             cbname.Items.Clear();
@@ -122,7 +122,6 @@ namespace SRUW
                 MessageBox.Show("Nie można załadować przedmiotów.", "SRUW - Błąd Bazodanowy", MessageBoxButton.OK, MessageBoxImage.Warning);
             };
         }
-
         public void DB_ConnectionComboBoxUniverAvailSwitch(ComboBox cbname2, ComboBox cbname1)
         {
             cbname2.Items.Clear();
@@ -151,7 +150,7 @@ namespace SRUW
                 MessageBox.Show("Nie można załadować przedmiotów.", "SRUW - Błąd Bazodanowy", MessageBoxButton.OK, MessageBoxImage.Warning);
             };
         }
-        public void DB_ConnectionInsert(TextBox polp, TextBox matp, TextBox engp, TextBox polpadd, TextBox matpadd, TextBox engpadd, TextBox name, TextBox pesel, TextBox email, TextBox address1, TextBox address2,ComboBox cbuniver,ComboBox cbuniverroutes)
+        public void DB_ConnectionInsert(TextBox polp, TextBox matp, TextBox engp, TextBox polpadd, TextBox matpadd, TextBox engpadd, TextBox name, TextBox pesel, TextBox email, TextBox address1, TextBox address2, ComboBox cbuniver, ComboBox cbuniverroutes)
         {
             String randomizedauthcode = "";
             String randomizedpassword = "";
@@ -234,7 +233,8 @@ namespace SRUW
                 MessageBox.Show("Błąd dodawania użytkownika. Czy posiadasz połączenie z internetem?", "SRUW - Błąd Bazodanowy", MessageBoxButton.OK, MessageBoxImage.Warning);
             };
         }
-        public void DB_Resolver_String_Randomizer(out string randomstring) {
+        public void DB_Resolver_String_Randomizer(out string randomstring)
+        {
             var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             var stringChars = new char[15];
             var random = new Random();
@@ -247,7 +247,8 @@ namespace SRUW
             randomstring = randomizedstring;
         }
 
-        public void DB_Resolver_Login_Queue(String login, String password, out String loginstatus, out String logintype, out int loginid) {
+        public void DB_Resolver_Login_Queue(String login, String password, out String loginstatus, out String logintype, out int loginid)
+        {
             String db_loginattemptquery = "SELECT type,id from sruw_accounts WHERE pesel=@usedlogin AND password = @usedpassword";
             MySqlConnection dbconnectionobj = new MySqlConnection(db_connectionstring);
             MySqlCommand execcommand1 = new MySqlCommand(db_loginattemptquery, dbconnectionobj);
@@ -257,7 +258,7 @@ namespace SRUW
             MySqlDataReader datareader;
             String Loginstatusholder = "";
             String Typeholder = "";
-            int Idholder =0;
+            int Idholder = 0;
             try
             {
                 dbconnectionobj.Open();
@@ -335,9 +336,9 @@ namespace SRUW
                 MessageBox.Show("Błąd Bazodanowy. Operacja nie powiodła się.", "SRUW - Błąd Bazodanowy", MessageBoxButton.OK, MessageBoxImage.Error);
             };
         }
-        public void DB_Resolver_Status_Queue(TextBox pesel,TextBox Name,TextBox Email,TextBox Address1,TextBox Address2,TextBox pol,TextBox mat,TextBox eng,TextBox pol1add,TextBox mat2add,TextBox eng3add,TextBox route,TextBox status,TextBox points, int usedid)
+        public void DB_Resolver_Status_Queue(TextBox pesel, TextBox Name, TextBox Email, TextBox Address1, TextBox Address2, TextBox pol, TextBox mat, TextBox eng, TextBox pol1add, TextBox mat2add, TextBox eng3add, TextBox route, TextBox status, TextBox points, int usedid)
         {
-            MySqlConnection dbconnectionobj = new MySqlConnection(db_connectionstring);;
+            MySqlConnection dbconnectionobj = new MySqlConnection(db_connectionstring);
             String peselholder = "";
             String nameholder = "";
             String emailholder = "";
@@ -371,7 +372,7 @@ namespace SRUW
             MySqlCommand execcommand3 = new MySqlCommand(db_selectionquery3, dbconnectionobj);
             execcommand3.CommandTimeout = 30;
 
-            String db_selectionquery4 = "SELECT name,pointtresh from sruw_univer_avail WHERE iduniver = @univerid AND id=@iduniveravail" ;
+            String db_selectionquery4 = "SELECT name,pointtresh from sruw_univer_avail WHERE iduniver = @univerid AND id=@iduniveravail";
             MySqlCommand execcommand4 = new MySqlCommand(db_selectionquery4, dbconnectionobj);
             execcommand4.CommandTimeout = 30;
 
@@ -447,8 +448,7 @@ namespace SRUW
                 eng3add.Text = eng3addholder;
                 route.Text = universitynameholder + " - " + routeholder;
                 DB_Resolver calculation = new DB_Resolver();
-                calculation.DB_Resolver_StatusPointsCalculator(polholder, matholder, engholder, pol1addholder, mat2addholder, eng3addholder,out calculatedpointsholder);
-                // ZMIENIC
+                calculation.DB_Resolver_StatusPointsCalculator(polholder, matholder, engholder, pol1addholder, mat2addholder, eng3addholder, out calculatedpointsholder);
                 if (pointsholder == "NIEUSTAWIONE")
                 {
                     statusholder = "OCZEKUJĄCY";
@@ -457,7 +457,7 @@ namespace SRUW
                 {
                     statusholder = "PRZYJĘTY";
                 }
-                else if(Convert.ToInt32(pointsholder) > calculatedpointsholder)
+                else if (Convert.ToInt32(pointsholder) > calculatedpointsholder)
                 {
                     statusholder = "ODRZUCONY";
                 }
@@ -477,6 +477,60 @@ namespace SRUW
         public void DB_Resolver_StatusPointsCalculator(String o1, String o2, String o3, String o4, String o5, String o6, out int calculatedpoints)
         {
             calculatedpoints = Convert.ToInt32(o1) + Convert.ToInt32(o2) + Convert.ToInt32(o3) + Convert.ToInt32(o4) + Convert.ToInt32(o5) + Convert.ToInt32(o6);
+        }
+
+        public void DB_Resolver_Status_Modify_Updater(TextBox Pesel, TextBox Name, TextBox Email, TextBox Address1, TextBox Address2, TextBox pol, TextBox mat, TextBox eng, TextBox pol1add, TextBox mat2add, TextBox eng3add, int usedid)
+        {
+            MySqlConnection dbconnectionobj = new MySqlConnection(db_connectionstring);
+            String db_selectionquery1 = "SELECT idgrades from sruw_accounts WHERE id = @userid";
+            MySqlCommand execcommand1 = new MySqlCommand(db_selectionquery1, dbconnectionobj);
+            execcommand1.Parameters.AddWithValue("@userid", usedid);
+            execcommand1.CommandTimeout = 30;
+            int idgradesholder = 0;
+
+            String db_insertionquery1 = "UPDATE sruw_accounts SET name = @name, pesel = @pesel, email = @email, address1 = @address1, address2 = @address2 WHERE id = @usedid";
+            MySqlCommand execcommand2 = new MySqlCommand(db_insertionquery1, dbconnectionobj);
+            execcommand2.Parameters.AddWithValue("@usedid", usedid);
+            execcommand2.Parameters.AddWithValue("@name", Name.Text);
+            execcommand2.Parameters.AddWithValue("@pesel", Pesel.Text);
+            execcommand2.Parameters.AddWithValue("@email", Email.Text);
+            execcommand2.Parameters.AddWithValue("@address1", Address1.Text);
+            execcommand2.Parameters.AddWithValue("@address2", Address2.Text);
+            execcommand2.CommandTimeout = 30;
+
+            String db_insertionquery2 = "UPDATE sruw_grades SET polish = @polish, english = @english, maths = @maths, add1 = @add1, add2 = @add2 , add3 = @add3 WHERE id = @idgrades";
+            MySqlCommand execcommand3 = new MySqlCommand(db_insertionquery2, dbconnectionobj);
+            execcommand3.Parameters.AddWithValue("@polish", pol.Text);
+            execcommand3.Parameters.AddWithValue("@english", eng.Text);
+            execcommand3.Parameters.AddWithValue("@maths", mat.Text);
+            execcommand3.Parameters.AddWithValue("@add1", pol1add.Text);
+            execcommand3.Parameters.AddWithValue("@add2", mat2add.Text);
+            execcommand3.Parameters.AddWithValue("@add3", eng3add.Text);
+            execcommand3.CommandTimeout = 30;
+
+            MySqlDataReader datareader;
+            try
+            {
+                dbconnectionobj.Open();
+                datareader = execcommand1.ExecuteReader();
+                if (datareader.HasRows)
+                {
+                    while (datareader.Read())
+                    {
+                        idgradesholder = datareader.GetInt32(0);
+                        execcommand3.Parameters.AddWithValue("@idgrades", idgradesholder);
+                    }
+                }
+                datareader.Close();
+                execcommand2.ExecuteNonQuery();
+                execcommand3.ExecuteNonQuery();
+                DB_ConnectionCloser(dbconnectionobj);
+                MessageBox.Show("Pomyślnie Zaktualizowano.", "SRUW - Aktualizacja danych pomyślna", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Błąd Bazodanowy. Operacja nie powiodła się.", "SRUW - Błąd Bazodanowy", MessageBoxButton.OK, MessageBoxImage.Error);
+            };
         }
     }
 }
