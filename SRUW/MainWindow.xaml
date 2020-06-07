@@ -9,7 +9,7 @@
     <Grid Name="MW_MainGrid" Margin="0,0,0,0">
         <Border BorderBrush="DarkGray" BorderThickness="3"></Border>
         <Image HorizontalAlignment="Center" Height="400" Margin="0,0,-10,230" VerticalAlignment="Center" Width="400" Name="MW_Logo_Image" MaxHeight="400" MinHeight="400" MaxWidth="400" MinWidth="400" Source="Images/logotype1.png" />
-        <Label Content="Wersja systemu : v1.10 Beta" FontStyle="Italic" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,75,0,0" VerticalAlignment="Center" Height="65" MaxHeight="50" MinHeight="50" Width="200" MaxWidth="200" MinWidth="200" Name="MW_Version_Label" />
+        <Label Content="Wersja systemu : v5.00 Beta" FontStyle="Italic" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,75,0,0" VerticalAlignment="Center" Height="65" MaxHeight="50" MinHeight="50" Width="200" MaxWidth="200" MinWidth="200" Name="MW_Version_Label" />
         <Grid Name="MW_ButtonGrid">
             <Button Content="Login" FontWeight="Bold" FontStyle="Italic" HorizontalAlignment="Center" Margin="0,250,0,0" VerticalAlignment="Center" Width="200" Height="25" Name="MW_Login_Button" Click="MW_F_Login"/>
             <Button Content="Rejestracja" HorizontalAlignment="Center" FontWeight="Bold" FontStyle="Italic" Margin="0,325,0,0" VerticalAlignment="Center" Width="200" Height="25" Name="MW_Register_Button" Click="MW_F_Register"/>

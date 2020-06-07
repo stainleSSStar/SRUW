@@ -5,8 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SRUW"
         mc:Ignorable="d"
-        Title="ChildWindow_AdmCtr" Height="450" Width="800">
-    <Grid>
-        
+        Title="SRUW - Panel Administratora" Height="400" Width="400" MaxHeight="400" MinHeight="400" MaxWidth="400" MinWidth="400">
+    <Grid Name="CW_AdminGrid" Margin="0,0,0,0">
+        <Border BorderBrush="DarkGray" BorderThickness="3"></Border>
+        <Label Content="Wszystko co robisz ma swoje konsekwencje." FontStyle="Italic" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="50,10,42,294" VerticalAlignment="Center" Height="65" MaxHeight="50" MinHeight="50" Width="300" MaxWidth="300" MinWidth="300" Name="CW_Warning_Label" />
+        <Grid Name="CW_ButtonGrid">
+            <Button Content="Administracja bazą danych" FontWeight="Bold" FontStyle="Italic" Foreground="Red" HorizontalAlignment="Left" Margin="73,65,0,0" VerticalAlignment="Top" Width="250" Height="30" MaxWidth="250" MinWidth="250" MinHeight="30" MaxHeight="30" Click="CW_Database_Opener"/>
+            <Button Content="Wróć" HorizontalAlignment="Left" Margin="134,318,0,0" VerticalAlignment="Top" Width="124" Height="30" MaxWidth="124" MinWidth="124" MinHeight="30" MaxHeight="30" Click="CW_AdmCtr_F_Close"/>
+        </Grid>
     </Grid>
 </Window>

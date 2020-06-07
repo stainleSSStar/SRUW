@@ -29,5 +29,15 @@ namespace SRUW
             InitializeComponent();
             this.usedid = usedid;
         }
+        private void CW_AdmCtr_F_Close(object sender, RoutedEventArgs e) {
+            Close();
+            var existingWindow = Application.Current.Windows.Cast<Window>().SingleOrDefault(x => x.Title.Equals("SRUW - Logowanie"));
+            var existingWindowMain = Application.Current.Windows.Cast<Window>().SingleOrDefault(x => x.Title.Equals("System Rekrutacji Uczelni Wyższych"));
+            existingWindow.Show();
+        }
+        private void CW_Database_Opener(object sender,RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://localhost/phpmyadmin/");
+        }
     }
 }
